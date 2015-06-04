@@ -28,10 +28,11 @@ abstract class AbstractMask
      * @param integer $strPad STR_PAD Constants
      * @return type
      */
-    public final function mask($value, $completeWith = null, $strPad = STR_PAD_BOTH) 
+    public final function mask($value, $completeWith = null, $strPad = STR_PAD_LEFT) 
     {
+        $this->mask = $this->getStringMask();
         $this->value = $value;
-        $this->total = strlen($this->mask);
+        $this->total = strlen($this->getStringMask());
         $this->completeWith = $completeWith;
         $this->strPad = $strPad;
         return $this
@@ -52,14 +53,12 @@ abstract class AbstractMask
      */
     private final function dispatch() 
     {
-        $this->mask = $this->getStringMask();
         if (is_null($this->mask) && !$this->mask) {
             throw new InvalidArgumentException('Sorry, mask is not set.');
         }
-
         $this->return = $this->mask;
         for ($i = 0, $j = 0; $j < $this->total; $i++, $j++) {
-            if ($this->mask[$j] != self::REPLACE_ELEMENT) {
+            if ($this->mask[$j] != static::REPLACE_ELEMENT) {
                 $i--;
                 continue;
             }
@@ -77,12 +76,13 @@ abstract class AbstractMask
     private final function pad() 
     {
         $totalMask = substr_count($this->mask, static::REPLACE_ELEMENT);
-        $totalValue = strlen($this->value);
+        $tmpValue = str_replace(static::REPLACE_ELEMENT, '', $this->value);
+        $totalValue = strlen($tmpValue);
         if (($totalMask > $totalValue)) {
             if (is_null($this->completeWith) && !$this->completeWith) {
                 $this->completeWith = static::DEFAULT_COMPLETE_WITH;
             }
-            $this->value = str_pad($this->value, $totalMask, $this->completeWith, $this->strPad);
+            $this->value = str_pad($tmpValue, $totalMask, $this->completeWith, $this->strPad);
         }
         return $this;
     }

@@ -11,15 +11,16 @@
   "homepage": "https://github.com/italolelis/datatables",
   "authors": [
     {
-      "name": "Philipe Maia de Farias Fernandes",
+      "name": "Philipe Fernandes",
       "email": "contato@jokerss.com.br"
     }
   ],
   "require": {
-    "php": ">=5.3.0"
+    "php": ">=5.4.0"
   },
   "require-dev": {
-    "php": ">=5.3.0"
+    "php": ">=5.4.0",
+    "phpunit/phpunit": "~4.5"
   },
   "autoload": {
     "psr-4": {
@@ -28,7 +29,9 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\Mask\\": "tests/"
+      "Tests\\Mask\\": "tests/",
+      "Tests\\Mask\\Mock\\": "tests/Mask/Mock",
+      "Tests\\Mask\\Structure\\": "tests/Mask/Structure"
     }
   }
 }
