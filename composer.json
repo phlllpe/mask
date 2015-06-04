@@ -1,0 +1,34 @@
+{
+  "name": "philipe/mask",
+  "description": "",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "mask",
+    "php mask",
+    "display value with mask"
+  ],
+  "homepage": "https://github.com/italolelis/datatables",
+  "authors": [
+    {
+      "name": "Philipe Maia de Farias Fernandes",
+      "email": "contato@jokerss.com.br"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "require-dev": {
+    "php": ">=5.3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mask\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Mask\\": "tests/"
+    }
+  }
+}
