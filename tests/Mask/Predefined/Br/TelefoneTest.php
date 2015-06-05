@@ -38,8 +38,8 @@ class TelefoneTest extends PHPUnit_Framework_TestCase
      */
     public function testMaskDefault($telefone) 
     {
-        $this->assertContains('-', (new Telefone)->mask($telefone));
-        $this->assertTrue(strlen($telefone) < strlen((new Telefone)->mask($telefone)));
+        $this->assertContains('-', (new Telefone)->mask($telefone)->toString());
+        $this->assertTrue(strlen($telefone) < strlen((new Telefone)->mask($telefone)->toString()));
     }
 
     /**
@@ -47,20 +47,21 @@ class TelefoneTest extends PHPUnit_Framework_TestCase
      */
     public function testMaskCompleteWith($telefone) 
     {
-        $this->assertContains('-', (new Telefone)->mask($telefone, '0', STR_PAD_RIGHT));
-        $this->assertTrue(strlen((new Telefone)->mask($telefone)) <= strlen((new Telefone)->mask($telefone, '0', STR_PAD_RIGHT)));
-        $this->assertTrue(strlen((new Telefone)->mask($telefone)) === strlen((new Telefone)->mask($telefone, ' ')));
+        $this->assertContains('-', (new Telefone)->mask($telefone, '0', STR_PAD_RIGHT)->toString());
+        $this->assertTrue(strlen((new Telefone)->mask($telefone)) <= strlen((new Telefone)->mask($telefone, '0', STR_PAD_RIGHT)->toString()));
+        $this->assertTrue(strlen((new Telefone)->mask($telefone)) === strlen((new Telefone)->mask($telefone, ' ')->toString()));
     }
     
     public function testMaskReal() 
     {
         $telefone = '83988117558';
-        $this->assertContains('-', (new Telefone)->mask($telefone));
-        $this->assertEquals('(83) 9881-17558', (new Telefone)->mask($telefone));
-        $this->assertEquals('(83) 9881-10000', (new Telefone)->mask('8398811', '0', STR_PAD_RIGHT));
-        $this->assertEquals('(83) 9881-00000', (new Telefone)->mask('839881', '0', STR_PAD_RIGHT));
-        $this->assertEquals('(83) 0000-00000', (new Telefone)->mask('83', '0', STR_PAD_RIGHT));
-        $this->assertEquals('(  )     -   83', (new Telefone)->mask('83'));
+        $this->assertContains('-', (new Telefone)->mask($telefone)->toString());
+        $this->assertEquals('(83) 9881-17558', (new Telefone)->mask($telefone)->toString());
+        $this->assertEquals('(83) 8811-7558', (new Telefone)->mask('8388117558', ' ', STR_PAD_RIGHT)->toString());
+        $this->assertEquals('(83) 9881-10000', (new Telefone)->mask('8398811', '0', STR_PAD_RIGHT)->toString());
+        $this->assertEquals('(83) 9881-00000', (new Telefone)->mask('839881', '0', STR_PAD_RIGHT)->toString());
+        $this->assertEquals('(83) 0000-00000', (new Telefone)->mask('83', '0', STR_PAD_RIGHT)->toString());
+        $this->assertEquals('(  )     -   83', (new Telefone)->mask('83')->toString());
     }
     
 }
