@@ -4,21 +4,64 @@ namespace Mask;
 
 use Mask\Exception\InvalidArgumentException;
 
+/**
+ * 
+ */
 abstract class AbstractMask 
 {
 
+    /**
+     *
+     * @var string 
+     */
     protected $mask;
+    
+    /**
+     *
+     * @var string 
+     */
     private $value;
+    
+    /**
+     *
+     * @var integer
+     */
     private $total;
+    
+    /**
+     *
+     * @var string 
+     */
     private $completeWith;
+    
+    /**
+     *
+     * @var integer 
+     */
     private $strPad;
+    
+    /**
+     *
+     * @var string 
+     */
     private $return;
 
     /**
-     * 
+     *
+     * @var string 
      */
     const REPLACE_ELEMENT = '#';
+    
+    /**
+     *
+     * @var string 
+     */
     const DEFAULT_COMPLETE_WITH = ' ';
+    
+    /**
+     *
+     * @var boolean
+     */
     const TRIM_IN_THE_END = true;
 
     /**
@@ -26,7 +69,7 @@ abstract class AbstractMask
      * @param string $value Value to be masked
      * @param string $completeWith String to repeat to complete the mask
      * @param integer $strPad STR_PAD Constants
-     * @return type
+     * @return \Mask\AbstractMask
      */
     public function mask($value, $completeWith = null, $strPad = STR_PAD_LEFT) 
     {
