@@ -1,6 +1,24 @@
-# MaskPHP
+# Mask
 
-- Mask for display 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/phlllpe/mask/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/phlllpe/mask/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/phlllpe/mask/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/phlllpe/mask/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/phlllpe/mask/badges/build.png?b=master)](https://scrutinizer-ci.com/g/phlllpe/mask/build-status/master)
+- Mask
+
+
+## Install
+
+``` sh
+composer require phlllpe/mask
+```
+
+## Usage
+
+```php
+
+```
+
+
 
 # Use
 
