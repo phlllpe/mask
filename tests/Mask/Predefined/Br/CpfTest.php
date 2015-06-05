@@ -58,7 +58,7 @@ class CpfTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('052.654.034-90', (new Cpf)->mask('0526540349', '0', STR_PAD_RIGHT));
         $this->assertEquals('052.654.034-00', (new Cpf)->mask('052654034', '0', STR_PAD_RIGHT));
         $this->assertEquals('052.654.000-00', (new Cpf)->mask('052654', '0', STR_PAD_RIGHT));
-        $this->assertEquals('000.000.000-52', (new Cpf)->mask('052'));
+        $this->assertEquals('   .   .  0-52', (new Cpf)->mask('052'));
     }
     
 }
