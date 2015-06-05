@@ -20,31 +20,31 @@ abstract class AbstractMask
      *
      * @var string 
      */
-    private $value;
+    protected $value;
     
     /**
      *
      * @var integer
      */
-    private $total;
+    protected $total;
     
     /**
      *
      * @var string 
      */
-    private $completeWith;
+    protected $completeWith;
     
     /**
      *
      * @var integer 
      */
-    private $strPad;
+    protected $strPad;
     
     /**
      *
      * @var string 
      */
-    private $return;
+    protected $return;
 
     /**
      *
@@ -80,7 +80,7 @@ abstract class AbstractMask
         $this->strPad = $strPad;
         return $this
             ->pad()
-            ->valid()
+            ->isValid()
             ->result();
     }
     /**
@@ -95,7 +95,7 @@ abstract class AbstractMask
      * @return \Mask\AbstractMask
      * @throws InvalidArgumentException
      */
-    private function valid()
+    protected function isValid()
     {
         if (is_null($this->mask) && !$this->mask) {
             throw new InvalidArgumentException('Sorry, mask is not set.');
@@ -107,7 +107,7 @@ abstract class AbstractMask
      * 
      * @return \Mask\AbstractMask
      */
-    private function result()
+    protected function result()
     {
         $this->return = $this->mask;
         for ($i = 0, $j = 0; $j < $this->total; $i++, $j++) {
@@ -135,7 +135,7 @@ abstract class AbstractMask
      * 
      * @return \Mask\AbstractMask
      */
-    private function pad() 
+    protected function pad() 
     {
         $totalMask = substr_count($this->mask, static::REPLACE_ELEMENT);
         $tmpValue = str_replace(static::REPLACE_ELEMENT, '', $this->value);
