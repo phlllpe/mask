@@ -16,13 +16,6 @@ composer require phlllpe/mask
 
 ```php
 
-```
-
-
-
-# Use
-
-    <?php
         use Mask\Predefined\Br\Cep;
         use Mask\Predefined\Br\Cpf;
 
@@ -42,5 +35,4 @@ composer require phlllpe/mask
             ...
         }
 
-
-
+```
