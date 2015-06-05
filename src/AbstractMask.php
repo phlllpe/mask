@@ -45,7 +45,7 @@ abstract class AbstractMask
      * 
      * @return string
      */
-    abstract function getStringMask();
+    abstract public function getStringMask();
     
     /**
      * 
