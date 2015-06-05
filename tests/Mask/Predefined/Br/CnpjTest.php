@@ -2,30 +2,30 @@
 
 namespace Tests\Mask\Predefined\Br;
 
-use Mask\Predefined\Br\Cep;
+use Mask\Predefined\Br\Cnpj;
 use PHPUnit_Framework_TestCase;
 
-class CepTest extends PHPUnit_Framework_TestCase
+class CnpjTest extends PHPUnit_Framework_TestCase
 {
     use \Tests\Mask\Structure\SetUp;
 
     public function testGetStringMask() 
     {
-        $this->assertNotContains('.', (new Cep)->getStringMask());
-        $this->assertNotContains('/', (new Cep)->getStringMask());
-        $this->assertNotContains('\\', (new Cep)->getStringMask());
-        $this->assertContains('#', (new Cep)->getStringMask());
-        $this->assertContains('-', (new Cep)->getStringMask());
+        $this->assertContains('.', (new Cnpj)->getStringMask());
+        $this->assertContains('/', (new Cnpj)->getStringMask());
+        $this->assertNotContains('\\', (new Cnpj)->getStringMask());
+        $this->assertContains('#', (new Cnpj)->getStringMask());
+        $this->assertContains('-', (new Cnpj)->getStringMask());
     }
     
     public function provider()
     {
         return array(
-            array('58015050'),
-            array('58015010'),
-            array('5801501'),
-            array('580150'),
-            array('58015'),
+            array('65787304000196'),
+            array('6578730400019'),
+            array('657873040001'),
+            array('65787304000'),
+            array('6578730400'),
         );
     }
 
@@ -33,31 +33,32 @@ class CepTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider provider
      */
-    public function testMaskDefault($cep) 
+    public function testMaskDefault($cnpj) 
     {
-        $this->assertContains('-', (new Cep)->mask($cep));
-        $this->assertTrue(strlen($cep) < strlen((new Cep)->mask($cep)));
+        $this->assertContains('-', (new Cnpj)->mask($cnpj));
+        $this->assertTrue(strlen($cnpj) < strlen((new Cnpj)->mask($cnpj)));
     }
 
     /**
      * @dataProvider provider
      */
-    public function testMaskCompleteWith($cep) 
+    public function testMaskCompleteWith($cnpj) 
     {
-        $this->assertContains('-', (new Cep)->mask($cep, '0', STR_PAD_RIGHT));
-        $this->assertTrue(strlen((new Cep)->mask($cep)) <= strlen((new Cep)->mask($cep, '0', STR_PAD_RIGHT)));
-        $this->assertTrue(strlen((new Cep)->mask($cep)) === strlen((new Cep)->mask($cep, ' ')));
+        $this->assertContains('-', (new Cnpj)->mask($cnpj, '0', STR_PAD_RIGHT));
+        $this->assertTrue(strlen((new Cnpj)->mask($cnpj)) <= strlen((new Cnpj)->mask($cnpj, '0', STR_PAD_RIGHT)));
+        $this->assertTrue(strlen((new Cnpj)->mask($cnpj)) === strlen((new Cnpj)->mask($cnpj, ' ')));
     }
     
     public function testMaskReal() 
     {
-        $cep = '58015050';
-        $this->assertContains('-', (new Cep)->mask($cep));
-        $this->assertEquals('58015-050', (new Cep)->mask($cep));
-        $this->assertEquals('58015-000', (new Cep)->mask('58015', '0', STR_PAD_RIGHT));
-        $this->assertEquals('58010-000', (new Cep)->mask('58010', '0', STR_PAD_RIGHT));
-        $this->assertEquals('58000-000', (new Cep)->mask('580', '0', STR_PAD_RIGHT));
-        $this->assertEquals('     -580', (new Cep)->mask('580'));
+        $this->assertContains('-', (new Cnpj)->mask('41362586000111'));
+        $this->assertContains('.', (new Cnpj)->mask('41362586000111'));
+        $this->assertContains('/', (new Cnpj)->mask('41362586000111'));
+        $this->assertEquals('41.362.586/0001-11', (new Cnpj)->mask('41362586000111'));
+        $this->assertEquals('41.362.586/0000-00', (new Cnpj)->mask('41362586000', '0', STR_PAD_RIGHT));
+        $this->assertEquals('41.362.586/0000-00', (new Cnpj)->mask('41362586', '0', STR_PAD_RIGHT));
+        $this->assertEquals('41.360.000/0000-00', (new Cnpj)->mask('4136', '0', STR_PAD_RIGHT));
+        $this->assertEquals('  .   .   /  41-36', (new Cnpj)->mask('4136'));
     }
     
 }
