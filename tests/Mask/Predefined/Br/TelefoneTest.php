@@ -2,30 +2,33 @@
 
 namespace Tests\Mask\Predefined\Br;
 
-use Mask\Predefined\Br\Cep;
+use Mask\Predefined\Br\Telefone;
 use PHPUnit_Framework_TestCase;
 
-class CepTest extends PHPUnit_Framework_TestCase
+class TelefoneTest extends PHPUnit_Framework_TestCase
 {
     use \Tests\Mask\Structure\SetUp;
 
     public function testGetStringMask() 
     {
-        $this->assertNotContains('.', (new Cep)->getStringMask());
-        $this->assertNotContains('/', (new Cep)->getStringMask());
-        $this->assertNotContains('\\', (new Cep)->getStringMask());
-        $this->assertContains('#', (new Cep)->getStringMask());
-        $this->assertContains('-', (new Cep)->getStringMask());
+        $this->assertNotContains('.', (new Telefone)->getStringMask());
+        $this->assertNotContains('/', (new Telefone)->getStringMask());
+        $this->assertNotContains('\\', (new Telefone)->getStringMask());
+        $this->assertContains('#', (new Telefone)->getStringMask());
+        $this->assertContains('-', (new Telefone)->getStringMask());
+        $this->assertContains('(', (new Telefone)->getStringMask());
+        $this->assertContains(')', (new Telefone)->getStringMask());
     }
     
     public function provider()
     {
         return array(
-            array('58015050'),
-            array('58015010'),
-            array('5801501'),
-            array('580150'),
-            array('58015'),
+            array('083988117558'),
+            array('08388117558'),
+            array('0839881175'),
+            array('08398811'),
+            array('08398'),
+            array('0839'),
         );
     }
 
@@ -33,31 +36,31 @@ class CepTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider provider
      */
-    public function testMaskDefault($cep) 
+    public function testMaskDefault($telefone) 
     {
-        $this->assertContains('-', (new Cep)->mask($cep));
-        $this->assertTrue(strlen($cep) < strlen((new Cep)->mask($cep)));
+        $this->assertContains('-', (new Telefone)->mask($telefone));
+        $this->assertTrue(strlen($telefone) < strlen((new Telefone)->mask($telefone)));
     }
 
     /**
      * @dataProvider provider
      */
-    public function testMaskCompleteWith($cep) 
+    public function testMaskCompleteWith($telefone) 
     {
-        $this->assertContains('-', (new Cep)->mask($cep, '0', STR_PAD_RIGHT));
-        $this->assertTrue(strlen((new Cep)->mask($cep)) <= strlen((new Cep)->mask($cep, '0', STR_PAD_RIGHT)));
-        $this->assertTrue(strlen((new Cep)->mask($cep)) === strlen((new Cep)->mask($cep, ' ')));
+        $this->assertContains('-', (new Telefone)->mask($telefone, '0', STR_PAD_RIGHT));
+        $this->assertTrue(strlen((new Telefone)->mask($telefone)) <= strlen((new Telefone)->mask($telefone, '0', STR_PAD_RIGHT)));
+        $this->assertTrue(strlen((new Telefone)->mask($telefone)) === strlen((new Telefone)->mask($telefone, ' ')));
     }
     
     public function testMaskReal() 
     {
-        $cep = '58015050';
-        $this->assertContains('-', (new Cep)->mask($cep));
-        $this->assertEquals('58015-050', (new Cep)->mask($cep));
-        $this->assertEquals('58015-000', (new Cep)->mask('58015', '0', STR_PAD_RIGHT));
-        $this->assertEquals('58010-000', (new Cep)->mask('58010', '0', STR_PAD_RIGHT));
-        $this->assertEquals('58000-000', (new Cep)->mask('580', '0', STR_PAD_RIGHT));
-        $this->assertEquals('     -580', (new Cep)->mask('580'));
+        $telefone = '83988117558';
+        $this->assertContains('-', (new Telefone)->mask($telefone));
+        $this->assertEquals('(83) 9881-17558', (new Telefone)->mask($telefone));
+        $this->assertEquals('(83) 9881-10000', (new Telefone)->mask('8398811', '0', STR_PAD_RIGHT));
+        $this->assertEquals('(83) 9881-00000', (new Telefone)->mask('839881', '0', STR_PAD_RIGHT));
+        $this->assertEquals('(83) 0000-00000', (new Telefone)->mask('83', '0', STR_PAD_RIGHT));
+        $this->assertEquals('(  )     -   83', (new Telefone)->mask('83'));
     }
     
 }
