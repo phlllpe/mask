@@ -35,8 +35,8 @@ class CpfTest extends PHPUnit_Framework_TestCase
      */
     public function testMaskDefault($cpf) 
     {
-        $this->assertContains('-', (new Cpf)->mask($cpf));
-        $this->assertTrue(strlen($cpf) < strlen((new Cpf)->mask($cpf)));
+        $this->assertContains('-', (new Cpf)->mask($cpf)->toString());
+        $this->assertTrue(strlen($cpf) < strlen((new Cpf)->mask($cpf)->toString()));
     }
 
     /**
@@ -44,21 +44,21 @@ class CpfTest extends PHPUnit_Framework_TestCase
      */
     public function testMaskCompleteWith($cpf) 
     {
-        $this->assertContains('-', (new Cpf)->mask($cpf, '0', STR_PAD_RIGHT));
-        $this->assertTrue(strlen((new Cpf)->mask($cpf)) <= strlen((new Cpf)->mask($cpf, '0', STR_PAD_RIGHT)));
-        $this->assertTrue(strlen((new Cpf)->mask($cpf)) === strlen((new Cpf)->mask($cpf, ' ')));
+        $this->assertContains('-', (new Cpf)->mask($cpf, '0', STR_PAD_RIGHT)->toString());
+        $this->assertTrue(strlen((new Cpf)->mask($cpf)) <= strlen((new Cpf)->mask($cpf, '0', STR_PAD_RIGHT)->toString()));
+        $this->assertTrue(strlen((new Cpf)->mask($cpf)) === strlen((new Cpf)->mask($cpf, ' ')->toString()));
     }
     
     public function testMaskReal() 
     {
-        $this->assertContains('-', (new Cpf)->mask('05265403496'));
-        $this->assertContains('.', (new Cpf)->mask('05265403496'));
-        $this->assertNotContains('/', (new Cpf)->mask('05265403496'));
-        $this->assertEquals('052.654.034-96', (new Cpf)->mask('05265403496'));
-        $this->assertEquals('052.654.034-90', (new Cpf)->mask('0526540349', '0', STR_PAD_RIGHT));
-        $this->assertEquals('052.654.034-00', (new Cpf)->mask('052654034', '0', STR_PAD_RIGHT));
-        $this->assertEquals('052.654.000-00', (new Cpf)->mask('052654', '0', STR_PAD_RIGHT));
-        $this->assertEquals('   .   .  0-52', (new Cpf)->mask('052'));
+        $this->assertContains('-', (new Cpf)->mask('05265403496')->toString());
+        $this->assertContains('.', (new Cpf)->mask('05265403496')->toString());
+        $this->assertNotContains('/', (new Cpf)->mask('05265403496')->toString());
+        $this->assertEquals('052.654.034-96', (new Cpf)->mask('05265403496')->toString());
+        $this->assertEquals('052.654.034-90', (new Cpf)->mask('0526540349', '0', STR_PAD_RIGHT)->toString());
+        $this->assertEquals('052.654.034-00', (new Cpf)->mask('052654034', '0', STR_PAD_RIGHT)->toString());
+        $this->assertEquals('052.654.000-00', (new Cpf)->mask('052654', '0', STR_PAD_RIGHT)->toString());
+        $this->assertEquals('.   .  0-52', (new Cpf)->mask('052')->toString());
     }
     
 }

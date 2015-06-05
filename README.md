@@ -6,18 +6,23 @@
 
     <?php
         use Mask\Predefined\Br\Cep;
+        use Mask\Predefined\Br\Cpf;
 
-        class Foo 
+        ...
+
+        public function foo($cepValue)
         {
-
             ...
-
-            public function setCep($cep)
-            {
-                return new Cep()->mask($cep);
-            }
-
+            $maskCep = new Cep()->mask($cepValue)->toString();
             ...
         }
+
+        public function bar($cpfValue)
+        {
+            ...
+            echo new Cpf()->mask($cpfValue);
+            ...
+        }
+
 
 

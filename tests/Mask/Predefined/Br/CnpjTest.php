@@ -35,8 +35,8 @@ class CnpjTest extends PHPUnit_Framework_TestCase
      */
     public function testMaskDefault($cnpj) 
     {
-        $this->assertContains('-', (new Cnpj)->mask($cnpj));
-        $this->assertTrue(strlen($cnpj) < strlen((new Cnpj)->mask($cnpj)));
+        $this->assertContains('-', (new Cnpj)->mask($cnpj)->toString());
+        $this->assertTrue(strlen($cnpj) < strlen((new Cnpj)->mask($cnpj)->toString()));
     }
 
     /**
@@ -44,21 +44,21 @@ class CnpjTest extends PHPUnit_Framework_TestCase
      */
     public function testMaskCompleteWith($cnpj) 
     {
-        $this->assertContains('-', (new Cnpj)->mask($cnpj, '0', STR_PAD_RIGHT));
-        $this->assertTrue(strlen((new Cnpj)->mask($cnpj)) <= strlen((new Cnpj)->mask($cnpj, '0', STR_PAD_RIGHT)));
-        $this->assertTrue(strlen((new Cnpj)->mask($cnpj)) === strlen((new Cnpj)->mask($cnpj, ' ')));
+        $this->assertContains('-', (new Cnpj)->mask($cnpj, '0', STR_PAD_RIGHT)->toString());
+        $this->assertTrue(strlen((new Cnpj)->mask($cnpj)) <= strlen((new Cnpj)->mask($cnpj, '0', STR_PAD_RIGHT)->toString()));
+        $this->assertTrue(strlen((new Cnpj)->mask($cnpj)) === strlen((new Cnpj)->mask($cnpj, ' ')->toString()));
     }
     
     public function testMaskReal() 
     {
-        $this->assertContains('-', (new Cnpj)->mask('41362586000111'));
-        $this->assertContains('.', (new Cnpj)->mask('41362586000111'));
-        $this->assertContains('/', (new Cnpj)->mask('41362586000111'));
-        $this->assertEquals('41.362.586/0001-11', (new Cnpj)->mask('41362586000111'));
-        $this->assertEquals('41.362.586/0000-00', (new Cnpj)->mask('41362586000', '0', STR_PAD_RIGHT));
-        $this->assertEquals('41.362.586/0000-00', (new Cnpj)->mask('41362586', '0', STR_PAD_RIGHT));
-        $this->assertEquals('41.360.000/0000-00', (new Cnpj)->mask('4136', '0', STR_PAD_RIGHT));
-        $this->assertEquals('  .   .   /  41-36', (new Cnpj)->mask('4136'));
+        $this->assertContains('-', (new Cnpj)->mask('41362586000111')->toString());
+        $this->assertContains('.', (new Cnpj)->mask('41362586000111')->toString());
+        $this->assertContains('/', (new Cnpj)->mask('41362586000111')->toString());
+        $this->assertEquals('41.362.586/0001-11', (new Cnpj)->mask('41362586000111')->toString());
+        $this->assertEquals('41.362.586/0000-00', (new Cnpj)->mask('41362586000', '0', STR_PAD_RIGHT)->toString());
+        $this->assertEquals('41.362.586/0000-00', (new Cnpj)->mask('41362586', '0', STR_PAD_RIGHT)->toString());
+        $this->assertEquals('41.360.000/0000-00', (new Cnpj)->mask('4136', '0', STR_PAD_RIGHT)->toString());
+        $this->assertEquals('.   .   /  41-36', (new Cnpj)->mask('4136')->toString());
     }
     
 }

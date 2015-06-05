@@ -37,7 +37,8 @@ abstract class AbstractMask
         $this->strPad = $strPad;
         return $this
             ->pad()
-            ->dispatch();
+            ->valid()
+            ->result();
     }
     /**
      * @example return ###-#.##,##
@@ -48,14 +49,23 @@ abstract class AbstractMask
     
     /**
      * 
-     * @return string
+     * @return \Mask\AbstractMask
      * @throws InvalidArgumentException
      */
-    private final function dispatch() 
+    private final function valid()
     {
         if (is_null($this->mask) && !$this->mask) {
             throw new InvalidArgumentException('Sorry, mask is not set.');
         }
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return \Mask\AbstractMask
+     */
+    private final function result()
+    {
         $this->return = $this->mask;
         for ($i = 0, $j = 0; $j < $this->total; $i++, $j++) {
             if ($this->mask[$j] != static::REPLACE_ELEMENT) {
@@ -66,7 +76,16 @@ abstract class AbstractMask
                 $this->return[$j] = $this->value[$i];
             }
         }
-        return $this->return;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public final function toString()
+    {
+        return $this->__toString();
     }
 
     /**
