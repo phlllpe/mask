@@ -26,14 +26,14 @@ composer require phlllpe/mask
         public function foo($cepValue)
         {
             ...
-            $maskCep = new Cep()->mask($cepValue)->toString();
+            $maskCep = )new Cep())->mask($cepValue)->toString();
             ...
         }
 
         public function bar($cpfValue)
         {
             ...
-            echo new Cpf()->mask($cpfValue);
+            echo (new Cpf())->mask($cpfValue);
             ...
         }
 
